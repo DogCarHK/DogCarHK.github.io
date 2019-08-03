@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>懷疑狗車扮接放學數據庫</title>
+</head>
+<body>
+
+<label>輸入車牌(e.g. 5479)</lable><br/>
+<input id="target"/><br/>
+<label>[懷疑狗車扮接放學數據庫] 搜尋結果</lable><br/>
+<div id="results"/><br/>
+
+<script>
+const db = [
+{id: 'VZ1136', src: 'https://lih.kg/1400534'},
+{id: 'Sk4735', src: 'https://lih.kg/1400534'},
+{id: 'RG3429', src: 'https://lih.kg/1400534'},
+{id: 'TC9462', src: 'https://lih.kg/1400534'},
+{id: 'SM2765', src: 'https://lih.kg/1400534'},
+{id: 'VP7811', src: 'https://lih.kg/1400534'},
+{id: 'AM7145', src: 'https://lih.kg/1400534'},
+{id: 'TE6475', src: 'https://lih.kg/1400534'},
+{id: 'UD5479', src: 'https://lih.kg/1400534'},
+{id: 'UV5413', src: 'https://lih.kg/1400534'},
+{id: 'RD5374', src: 'https://lih.kg/1400534'},
+{id: 'TB6297', src: 'https://lih.kg/1400534'},
+{id: 'UR6957', src: 'https://lih.kg/1400534'},
+{id: 'VP6544', src: 'https://lih.kg/1400534'},
+{id: 'UR6524', src: 'https://lih.kg/1400534'},
+{id: 'VT8089', src: 'https://lih.kg/1400534'},
+{id: 'RJ2745', src: 'https://lih.kg/1372290'},
+{id: 'PX2292', src: 'https://lih.kg/1372290'},
+{id: 'RU877', src: 'https://lih.kg/1372290'},
+{id: 'BZ8027', src: 'https://lih.kg/1372290'},
+{id: 'UV3957', src: 'https://lih.kg/1372290'},
+{id: 'UV3645', src: 'https://lih.kg/1372290'},
+{id: 'UT6274', src: 'https://lih.kg/1372290'},
+{id: 'UL7468', src: 'https://lih.kg/1372290'},
+{id: 'SK2457', src: 'https://lih.kg/1372290'},
+{id: 'TE6472', src: 'https://lih.kg/1372290'},
+{id: 'TF7964', src: 'https://lih.kg/1372290'},
+{id: 'VA5173', src: 'https://lih.kg/1372290'},
+{id: 'SR5974', src: 'https://lih.kg/1372290'},
+{id: 'SW2514', src: 'https://lih.kg/1372290'},
+{id: 'WF3472', src: 'https://lih.kg/1372290'},
+{id: 'SJ2457', src: 'https://lih.kg/1372290'},
+{id: 'SB3254', src: 'https://lih.kg/1372290'},
+{id: 'JR1322', src: 'https://lih.kg/1400908'},
+{id: 'NT4524', src: 'https://lih.kg/1400908'},
+{id: 'NY9732', src: 'https://lih.kg/1400908'},
+{id: 'MA3527', src: 'https://lih.kg/1400908'},
+{id: 'MF9752', src: 'https://lih.kg/1400908'},
+{id: 'MG2574', src: 'https://lih.kg/1400908'},
+{id: 'MH5726', src: 'https://lih.kg/1400908'},
+{id: 'MH7154', src: 'https://lih.kg/1400908'},
+{id: 'MV2367', src: 'https://lih.kg/1400908'},
+{id: 'MX4217', src: 'https://lih.kg/1400908'},
+{id: 'MY2594', src: 'https://lih.kg/1400908'},
+{id: 'NA2796', src: 'https://lih.kg/1400908'},
+{id: 'NB4597', src: 'https://lih.kg/1400908'},
+{id: 'NB6485', src: 'https://lih.kg/1400908'},
+{id: 'NT5493', src: 'https://lih.kg/1400908'},
+{id: 'NT5974', src: 'https://lih.kg/1400908'},
+{id: 'NT7269', src: 'https://lih.kg/1400908'},
+{id: 'NT7954', src: 'https://lih.kg/1400908'},
+{id: 'NU5673', src: 'https://lih.kg/1400908'},
+{id: 'NU7946', src: 'https://lih.kg/1400908'},
+{id: 'NX5792', src: 'https://lih.kg/1400908'},
+{id: 'NZ5436', src: 'https://lih.kg/1400908'},
+{id: 'PE3745', src: 'https://lih.kg/1400908'},
+{id: 'PE5463', src: 'https://lih.kg/1400908'},
+{id: 'PF4657', src: 'https://lih.kg/1400908'},
+{id: 'PF5462', src: 'https://lih.kg/1400908'},
+{id: 'PF6573', src: 'https://lih.kg/1400908'},
+{id: 'PH6794', src: 'https://lih.kg/1400908'},
+{id: 'PJ4726', src: 'https://lih.kg/1400908'},
+{id: 'PR5492', src: 'https://lih.kg/1400908'},
+{id: 'PS4532', src: 'https://lih.kg/1400908'},
+{id: 'PS9634', src: 'https://lih.kg/1400908'},
+{id: 'RB4315', src: 'https://lih.kg/1400908'},
+{id: 'RB6239', src: 'https://lih.kg/1400908'},
+{id: 'RC7962', src: 'https://lih.kg/1400908'},
+{id: 'RE7294', src: 'https://lih.kg/1400908'},
+{id: 'RG6547', src: 'https://lih.kg/1400908'},
+{id: 'RN4975', src: 'https://lih.kg/1400908'},
+{id: 'RL6925', src: 'https://lih.kg/1400908'},
+{id: 'RS5792', src: 'https://lih.kg/1400908'},
+{id: 'RV2138', src: 'https://lih.kg/1400908'},
+{id: 'SH6924', src: 'https://lih.kg/1400908'},
+{id: 'SL4239', src: 'https://lih.kg/1400908'},
+{id: 'SP5723', src: 'https://lih.kg/1400908'},
+{id: 'SV6597', src: 'https://lih.kg/1400908'},
+{id: 'SW4453', src: 'https://lih.kg/1400908'},
+{id: 'SX4596', src: 'https://lih.kg/1400908'},
+{id: 'SX6254', src: 'https://lih.kg/1400908'},
+{id: 'SY7546', src: 'https://lih.kg/1400908'},
+{id: 'SZ4376', src: 'https://lih.kg/1400908'},
+{id: 'SZ6347', src: 'https://lih.kg/1400908'},
+{id: 'TA1246', src: 'https://lih.kg/1400908'},
+{id: 'TA4523', src: 'https://lih.kg/1400908'},
+{id: 'TA7942', src: 'https://lih.kg/1400908'},
+{id: 'TD4967', src: 'https://lih.kg/1400908'},
+{id: 'TD5234', src: 'https://lih.kg/1400908'},
+{id: 'TF3956', src: 'https://lih.kg/1400908'},
+{id: 'TG5429', src: 'https://lih.kg/1400908'},
+{id: 'TU4941', src: 'https://lih.kg/1400908'},
+{id: 'TU5586', src: 'https://lih.kg/1400908'},
+{id: 'UB4572', src: 'https://lih.kg/1400908'},
+{id: 'UF4723', src: 'https://lih.kg/1400908'},
+{id: 'UG4976', src: 'https://lih.kg/1400908'},
+{id: 'UK5672', src: 'https://lih.kg/1400908'},
+{id: 'UL47256', src: 'https://lih.kg/1400908'},
+{id: 'UM7534', src: 'https://lih.kg/1400908'},
+{id: 'UP6375', src: 'https://lih.kg/1400908'},
+{id: 'UP6754', src: 'https://lih.kg/1400908'},
+{id: 'UR5746', src: 'https://lih.kg/1400908'},
+{id: 'UR6735', src: 'https://lih.kg/1400908'},
+{id: 'US4637', src: 'https://lih.kg/1400908'},
+{id: 'US5674', src: 'https://lih.kg/1400908'},
+{id: 'UV4735', src: 'https://lih.kg/1400908'},
+{id: 'UV7236', src: 'https://lih.kg/1400908'},
+{id: 'UV7326', src: 'https://lih.kg/1400908'},
+{id: 'UY3475', src: 'https://lih.kg/1400908'},
+{id: 'UY7236', src: 'https://lih.kg/1400908'},
+{id: 'UZ4763', src: 'https://lih.kg/1400908'},
+{id: 'VC7266', src: 'https://lih.kg/1400908'},
+{id: 'VK4012', src: 'https://lih.kg/1400908'},
+].map(item => {
+  item.id = item.id.toUpperCase();
+  return item;
+});
+function check(target){
+  const results = target ? db
+    .filter(({ id }) => id.includes(target))
+    .sort(({id: a}, {id: b}) => a > b ? 1 : -1)
+    .map(({ id, src }) => `${id}, 來源: <a href="${src}">${src}</a>`)
+    .join('<br/>') : ''
+  return results ? results : 'NOT FOUND'
+}
+
+const target = document.getElementById('target');
+target.onkeyup = function () {
+  const target = document.getElementById('target')
+  const results_dom = document.getElementById('results')
+  const results = check(target.value.toUpperCase())
+  results_dom.innerHTML = results
+};
+</script>
+
+</body>
+</html>
