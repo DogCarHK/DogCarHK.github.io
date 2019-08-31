@@ -10,6 +10,9 @@ input {
   font-size:5vw;
   border: 2px solid #000;
 }
+#results {
+  font-size:3vw;
+}
 </style>
 </head>
 <body>
@@ -367,10 +370,11 @@ const db = [
   return item;
 });
 function check(target){
-  const results = target ? db
+  const results = target ? Object.entries(db
     .filter(({ id }) => id.includes(target))
     .sort(({id: a}, {id: b}) => a > b ? 1 : -1)
-    .map(({ id, src }) => `${id}, 來源: <a href="${src}">${src}</a>`)
+    .reduce((acc, { id, src }) => ({ ...acc, [id]: [...acc[id]?acc[id]: [], src] }), {}))
+    .map(([ id, srcs ]) => `${id}, 來源: ` + srcs.map(src => `<a href="${src}">${src}</a>`))
     .join('<br/>') : ''
   return results ? results : 'NOT FOUND'
 }
